@@ -1,3 +1,38 @@
+# Routing example. History, "back" button
+
+## react-router-dom
+
+### Components:
+
+- `<BrowserRouter>`
+- `<Outlet>` - используется для отображения дочерних `Route` в родительсклм `Route`
+- `<Routes>` - родительский элемент для всех `Route`. При изменении адреса, Routes просматривает все свои дочерние Route
+  в поисках наиьолее подходящего path
+- `<Route>` - Путь к отдельному компоненту. Могут быть вложенными для сохранения базового меню.
+  `<Route path=":userId" element={<ProfilePage />} />`
+  могут рассматриваться как аналогии логического if: если его атрибут `path` совпадает с текущим URL, рендерится
+  элемент из атрибута `element`
+  Полезно указывать `path ="*"` для страницы "ничего не найдено" (no match route)
+  `index` вместо `path` создает начальный `Route`, чей адрес совпадает с родительским
+- `<Link>` - Элемент, приклике на который происходит переход на другую страницу.
+  Меняют URL, не приводя к перезагрузке страницы. Основной механизм для пользовательской навигации
+
+### Hooks:
+
+- `useHistory` --> `useNavigate` навигация при помощи кода (клика по кнопке).
+  Дополнение к основному средству навигации (`Link`)
+  `const navigate = useNavigate()`
+  Навигация к определенному адресу: `navigate("../success", { replace: true })`
+  Навигация на несколько шагов назад по стеку истории `navigate(-1)` === кнопка "назад"
+- `useLocation` - возвращает объеткт для теущей location
+  `let location = useLocation()`
+- `useParams` - возвращает объект с парами параметров ключ/значение из текущего URL, которые сматчились с `<Route path>`
+   about/:name
+  `let { name } = useParams()`
+   Позволяет получать динамические параметры (`path="/about:name"`)
+- `useRouterMatch` (deprecated) The useRouteMatch hook attempts to match the current URL in the same way that a `<Route>` would. 
+   `useMatch` - возвращает данные по совпадению  `path` с текущим местоположением.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
